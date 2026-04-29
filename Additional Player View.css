@@ -16,8 +16,8 @@
   --panel-max-width: 1050px;
   --panel-padding-y: 32px;
 
-  --row-height: 2.85rem;
-  --header-height: 3rem;
+  --row-height: 1rem;
+  --header-height: 2rem;
   --row-padding-x: 1rem;
   --row-padding-y: 0.22rem;
   --column-gap: 0.5rem;
@@ -58,7 +58,7 @@
   --tag-border: rgba(255, 180, 120, 0.35);
 
   /* Type */
-  font-size: 22px;
+  font-size: 15px;
 }
 
 /* =========================================================
