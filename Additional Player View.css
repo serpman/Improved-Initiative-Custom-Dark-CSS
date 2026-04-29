@@ -21,12 +21,15 @@
   --row-padding-y: 0.22rem;
   --column-gap: 0.5rem;
 
-  /* Grid columns */
+  /* Grid columns
+     --col-name uses minmax(0, 1fr) so the name column shrinks gracefully
+     at narrower viewports instead of forcing the grid to overflow.
+     text-overflow: ellipsis in Section 6 handles any truncation. */
   --col-init: 3rem;
   --col-portrait: 3rem;
-  --col-name: minmax(14rem, 1fr);
+  --col-name: minmax(0, 1fr);
   --col-hp: 7rem;
-  --col-tags: 11rem;
+  --col-tags: 10rem;
   --col-reaction: 2.5rem;
 
   /* Colors */
@@ -87,6 +90,36 @@
   column-gap: var(--column-gap);
   align-items: center !important;
   box-sizing: border-box;
+
+  /* Establish a fresh positioning context for this row */
+  position: relative !important;
+}
+
+/*
+  Improved Initiative uses position:absolute on several child elements
+  (portrait, tags, reaction tracker) which pulls them out of grid flow.
+  Reset each element's position so it participates in the grid normally.
+
+  Notes:
+  - portrait and tags get position:static (no children need a positioning context)
+  - reaction-tracker uses position:relative (Font Awesome's fa-stack needs a
+    positioning context for its inner fa-stack-1x / fa-stack-2x icons)
+*/
+#playerview .combatant__portrait,
+#playerview .combatant__tags {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+
+#playerview .reaction-tracker {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
 }
 
 /* =========================================================
