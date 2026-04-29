@@ -48,8 +48,9 @@
 
   /* How much to brighten the app's HP colours on our dark background.
      1.0 = no change  |  2.0 = double brightness  |  3.0 = triple.
-     The partial-HP olive colour is very dark, so this needs to be high. */
-  --hp-brightness: 2.8;
+     Used together with --hp-saturate so colours stay vivid rather than fading. */
+  --hp-brightness: 2.2;
+  --hp-saturate: 2.5;
 
   /* Tags */
   --tag-bg-top: #8f2a12;
@@ -466,7 +467,7 @@
    recognisable but remain visible against our dark background.
    Tune --hp-brightness in Section 1 to taste. */
 #playerview .combatant:not(.combatant--header) .combatant__hp .combatant__hp-inner {
-  filter: brightness(var(--hp-brightness)) !important;
+  filter: saturate(var(--hp-saturate)) brightness(var(--hp-brightness)) !important;
   text-shadow: -1px 1px 2px #000 !important;
 }
 
