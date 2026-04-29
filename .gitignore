@@ -1,5 +1,6 @@
-# Replit internal docs — not needed in the public repo
+# Replit internal files — not needed in the public repo
 replit.md
+.replit
 
 # Attached assets uploaded during development — not needed in the public repo
 attached_assets/
