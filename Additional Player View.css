@@ -12,7 +12,7 @@
 
 #playerview {
   /* Layout */
-  --panel-width: 80%;
+  --panel-width: 95%;
   --panel-padding-y: 32px;
 
   --row-height: 2.85rem;
@@ -24,7 +24,7 @@
   /* Grid columns */
   --col-init: 3rem;
   --col-portrait: 3rem;
-  --col-name: minmax(14rem, 1fr);
+  --col-name: minmax(12rem, 1fr);
   --col-hp: 7rem;
   --col-tags: 11rem;
   --col-reaction: 2.5rem;
@@ -57,6 +57,7 @@
 
 #playerview .c-player-view {
   width: var(--panel-width);
+  max-width: 1100px;
   margin: auto;
   padding: var(--panel-padding-y) 0;
 
