@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Improved Initiative – Custom Dark CSS Theme</title>
+  <link rel="stylesheet" href="Additional Player View.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a2e;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(120, 80, 10, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(10, 40, 80, 0.2) 0%, transparent 60%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+    }
+
+    .page-header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+      color: #d4af37;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-header p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+    }
+
+    /* Simulate the Improved Initiative #playerview wrapper */
+    #playerview {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 1rem;
+    }
+
+    .c-player-view {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .combatant,
+    .combatant--header {
+      width: 100%;
+    }
+
+    /* Minimal reset for demo only */
+    .combatant__portrait img {
+      border-radius: 50%;
+    }
+
+    .page-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-top: 2rem;
+    }
+
+    .page-footer a {
+      color: #d4af37;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Improved Initiative — Custom Dark CSS Theme</h1>
+    <p>A high-readability dark theme for the Player View combat tracker &mdash; optimised for TV &amp; laptop display.</p>
+  </header>
+
+  <!-- Simulated Improved Initiative Player View -->
+  <div id="playerview">
+    <div class="c-player-view">
+
+      <!-- Header row -->
+      <div class="combatant combatant--header">
+        <div class="combatant__initiative"><i class="fas fa-forward"></i></div>
+        <div class="combatant__portrait"></div>
+        <div class="combatant__name">Name</div>
+        <div class="combatant__hp"><i class="fas fa-heart"></i></div>
+        <div class="combatant__tags"><i class="fas fa-tag"></i><i class="fas fa-expand"></i></div>
+      </div>
+
+      <!-- Active combatant -->
+      <div class="combatant active">
+        <div class="combatant__initiative">18</div>
+        <div class="combatant__portrait">
+          <img src="https://via.placeholder.com/40/8B4513/FFD700?text=P" alt="portrait" />
+        </div>
+        <div class="combatant__name">Aelindra Swiftarrow</div>
+        <div class="combatant__hp">42 / 58</div>
+        <div class="combatant__tags">
+          <span class="tag">Concentrating</span>
+          <span class="tag">Blessed</span>
+        </div>
+        <div class="reaction-tracker fa-stack">
+          <i class="fas fa-circle fa-stack-2x" style="color: rgba(255,255,255,0.15);"></i>
+          <i class="fas fa-bolt fa-stack-1x" style="color:#d4af37;"></i>
+        </div>
+      </div>
+
+      <!-- Normal combatant -->
+      <div class="combatant">
+        <div class="combatant__initiative">15</div>
+        <div class="combatant__portrait">
+          <img src="https://via.placeholder.com/40/2F4F2F/00FF00?text=G" alt="portrait" />
+        </div>
+        <div class="combatant__name">Grak Stonefist</div>
+        <div class="combatant__hp">30 / 30</div>
+        <div class="combatant__tags">
+          <span class="tag">Raging</span>
+        </div>
+        <div class="reaction-tracker fa-stack">
+          <i class="fas fa-circle fa-stack-2x" style="color: rgba(255,255,255,0.15);"></i>
+          <i class="fas fa-bolt fa-stack-1x" style="color:rgba(255,255,255,0.4);"></i>
+        </div>
+      </div>
+
+      <!-- Alternate row -->
+      <div class="combatant">
+        <div class="combatant__initiative">12</div>
+        <div class="combatant__portrait">
+          <img src="https://via.placeholder.com/40/4B0082/FFFFFF?text=M" alt="portrait" />
+        </div>
+        <div class="combatant__name">Miravel the Arcane</div>
+        <div class="combatant__hp" style="color: #ffd700;">8 / 44</div>
+        <div class="combatant__tags">
+          <span class="tag">Shield</span>
+          <span class="tag">Haste</span>
+        </div>
+        <div class="reaction-tracker fa-stack">
+          <i class="fas fa-circle fa-stack-2x" style="color: rgba(255,255,255,0.15);"></i>
+          <i class="fas fa-bolt fa-stack-1x" style="color:rgba(255,255,255,0.4);"></i>
+        </div>
+      </div>
+
+      <!-- Another combatant -->
+      <div class="combatant">
+        <div class="combatant__initiative">10</div>
+        <div class="combatant__portrait">
+          <img src="https://via.placeholder.com/40/8B0000/FF6666?text=O" alt="portrait" />
+        </div>
+        <div class="combatant__name">Orc Warlord</div>
+        <div class="combatant__hp" style="color: #d40000;">5 / 52</div>
+        <div class="combatant__tags">
+          <span class="tag">Bloodied</span>
+        </div>
+        <div class="reaction-tracker fa-stack">
+          <i class="fas fa-circle fa-stack-2x" style="color: rgba(255,255,255,0.15);"></i>
+          <i class="fas fa-bolt fa-stack-1x" style="color:rgba(255,255,255,0.4);"></i>
+        </div>
+      </div>
+
+      <!-- Another combatant -->
+      <div class="combatant">
+        <div class="combatant__initiative">7</div>
+        <div class="combatant__portrait">
+          <img src="https://via.placeholder.com/40/1a3a5c/87CEEB?text=C" alt="portrait" />
+        </div>
+        <div class="combatant__name">Cavalier NPC</div>
+        <div class="combatant__hp">24 / 24</div>
+        <div class="combatant__tags"></div>
+        <div class="reaction-tracker fa-stack">
+          <i class="fas fa-circle fa-stack-2x" style="color: rgba(255,255,255,0.15);"></i>
+          <i class="fas fa-bolt fa-stack-1x" style="color:rgba(255,255,255,0.4);"></i>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="combat-footer">
+        <span style="opacity:0.5; font-size:0.75em;">Round 3 &nbsp;&bull;&nbsp; Active Turn: Aelindra Swiftarrow</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    CSS theme designed for <a href="https://www.improved-initiative.com/" target="_blank">Improved Initiative</a>.
+    Paste the contents of <code>Additional Player View.css</code> into Settings &rarr; Custom CSS.
+  </footer>
+
+</body>
+</html>
