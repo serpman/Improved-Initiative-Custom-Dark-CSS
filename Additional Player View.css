@@ -67,7 +67,6 @@
    DOES NOT touch anything that affects <1000px behaviour. */
 @media (min-width: 1000px) {
   #playerview {
-    font-size: 16px;
     --col-portrait: 2.5rem;  /* smaller portrait = shorter rows */
     --col-hp: 7rem;
     --col-tags: 9rem;
