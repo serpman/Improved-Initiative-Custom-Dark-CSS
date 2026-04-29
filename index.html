@@ -99,15 +99,15 @@
         <div class="combatant__tags"><i class="fas fa-tag"></i> <i class="fas fa-expand"></i></div>
       </div>
 
-      <!-- Combatant rows are <li> elements in the real app -->
+      <!-- Combatant rows are <li> elements in the real app.
+           Monsters have no portrait URL → empty div → shows 👹 fallback.
+           Player characters have a portrait image. -->
       <ul style="list-style:none; margin:0; padding:0;">
 
-        <!-- Active combatant -->
+        <!-- Monster — no portrait URL → empty div → 👹 -->
         <li class="combatant active">
           <div class="combatant__initiative">25</div>
-          <div class="combatant__portrait">
-            <img src="https://i.imgur.com/8MxZJnq.png" alt="portrait" onerror="this.style.display='none'" />
-          </div>
+          <div class="combatant__portrait"></div>
           <div class="combatant__name">Adult Bronze Dragon</div>
           <div class="combatant__hp combatant__hp-outer"><span class="combatant__hp-inner" style="color:#00cc00;">Healthy</span></div>
           <div class="combatant__tags">
@@ -120,11 +120,10 @@
           </span>
         </li>
 
+        <!-- Monster -->
         <li class="combatant">
           <div class="combatant__initiative">24</div>
-          <div class="combatant__portrait">
-            <img src="https://i.imgur.com/bad.png" alt="" onerror="this.style.display='none'" />
-          </div>
+          <div class="combatant__portrait"></div>
           <div class="combatant__name">Adult Black Dragon 1</div>
           <div class="combatant__hp combatant__hp-outer"><span class="combatant__hp-inner" style="color:#d40000;">Defeated</span></div>
           <div class="combatant__tags">
@@ -133,6 +132,7 @@
           </div>
         </li>
 
+        <!-- Monster -->
         <li class="combatant">
           <div class="combatant__initiative">22</div>
           <div class="combatant__portrait"></div>
@@ -141,6 +141,7 @@
           <div class="combatant__tags"></div>
         </li>
 
+        <!-- Monster — reaction used -->
         <li class="combatant">
           <div class="combatant__initiative">19</div>
           <div class="combatant__portrait"></div>
@@ -153,10 +154,11 @@
           </span>
         </li>
 
+        <!-- Player character — has portrait image -->
         <li class="combatant">
           <div class="combatant__initiative">18</div>
           <div class="combatant__portrait">
-            <img src="https://i.imgur.com/bad2.png" alt="" onerror="this.style.display='none'" />
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23b8860b'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-size='22' fill='white'%3E🧙%3C/text%3E%3C/svg%3E" alt="Lurleen Lumpkin" />
           </div>
           <div class="combatant__name">Lurleen Lumpkin</div>
           <div class="combatant__hp combatant__hp-outer"><span class="combatant__hp-inner" style="color:#00cc00;">24/27</span></div>
@@ -169,6 +171,18 @@
           </span>
         </li>
 
+        <!-- Player character — has portrait image -->
+        <li class="combatant">
+          <div class="combatant__initiative">18</div>
+          <div class="combatant__portrait">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%234a90d9'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-size='22' fill='white'%3E🧝%3C/text%3E%3C/svg%3E" alt="Monasteria Dawnsong" />
+          </div>
+          <div class="combatant__name">Monasteria Dawnsong</div>
+          <div class="combatant__hp combatant__hp-outer"><span class="combatant__hp-inner" style="color:#00cc00;">27/27</span></div>
+          <div class="combatant__tags"></div>
+        </li>
+
+        <!-- Monster -->
         <li class="combatant">
           <div class="combatant__initiative">17</div>
           <div class="combatant__portrait"></div>
@@ -176,6 +190,19 @@
           <div class="combatant__hp combatant__hp-outer"><span class="combatant__hp-inner" style="color:#00cc00;">Healthy</span></div>
           <div class="combatant__tags">
             <div class="tag">Concentrating</div>
+          </div>
+        </li>
+
+        <!-- Player character -->
+        <li class="combatant">
+          <div class="combatant__initiative">9</div>
+          <div class="combatant__portrait">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23228b22'/%3E%3Ctext x='20' y='26' text-anchor='middle' font-size='22' fill='white'%3E🧟%3C/text%3E%3C/svg%3E" alt="Trumble Dump" />
+          </div>
+          <div class="combatant__name">Trumble Dump</div>
+          <div class="combatant__hp combatant__hp-outer"><span class="combatant__hp-inner" style="color:#00cc00;">35/35</span></div>
+          <div class="combatant__tags">
+            <div class="tag">Prone</div>
           </div>
         </li>
 

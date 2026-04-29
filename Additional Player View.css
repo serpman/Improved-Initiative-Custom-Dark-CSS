@@ -13,6 +13,7 @@
 #playerview {
   /* Layout */
   --panel-width: 80%;
+  --panel-max-width: 1050px;
   --panel-padding-y: 32px;
 
   --row-height: 2.85rem;
@@ -60,6 +61,7 @@
 
 #playerview .c-player-view {
   width: var(--panel-width);
+  max-width: var(--panel-max-width);
   margin: auto;
   padding: var(--panel-padding-y) 0;
 
@@ -98,28 +100,50 @@
 /*
   Improved Initiative uses position:absolute on several child elements
   (portrait, tags, reaction tracker) which pulls them out of grid flow.
-  Reset each element's position so it participates in the grid normally.
+  Reset each element so it participates in the grid normally.
 
-  Notes:
-  - portrait and tags get position:static (no children need a positioning context)
-  - reaction-tracker uses position:relative (Font Awesome's fa-stack needs a
-    positioning context for its inner fa-stack-1x / fa-stack-2x icons)
+  We chain the parent class (.combatant / .combatant--header) to boost
+  specificity high enough to beat whatever Improved Initiative's own CSS
+  uses on these elements.
+
+  - portrait & tags → position:static (no inner children need a context)
+  - reaction-tracker → position:relative (Font Awesome fa-stack needs a
+    positioning context for its stacked fa-stack-1x / fa-stack-2x icons)
 */
-#playerview .combatant__portrait,
-#playerview .combatant__tags {
+#playerview .combatant .combatant__portrait,
+#playerview .combatant--header .combatant__portrait,
+#playerview .combatant .combatant__tags,
+#playerview .combatant--header .combatant__tags {
   position: static !important;
   top: auto !important;
   right: auto !important;
   bottom: auto !important;
   left: auto !important;
+  inset: auto !important;
 }
 
+#playerview .combatant .reaction-tracker,
 #playerview .reaction-tracker {
   position: relative !important;
   top: auto !important;
   right: auto !important;
   bottom: auto !important;
   left: auto !important;
+  inset: auto !important;
+}
+
+/* =========================================================
+   EMPTY PORTRAIT FALLBACK
+   When a combatant has no portrait URL, the portrait div is empty.
+   Show 👹 as a placeholder at the same visual size as a portrait image.
+   ========================================================= */
+#playerview .combatant:not(.combatant--header) .combatant__portrait:empty::before {
+  content: '👹';
+  font-size: 2em;
+  line-height: 1;
+  display: block;
+  text-align: center;
+  width: 2em;
 }
 
 /* =========================================================
