@@ -311,6 +311,12 @@
   background: var(--row-alt-bg);
 }
 
+/* Kill the red divider line the app injects via .combatant::before */
+#playerview:not(#_) .combatant::before {
+  content: none !important;
+  border-bottom: none !important;
+}
+
 /* =========================================================
    6. BODY COLUMN PLACEMENT
    ========================================================= */
