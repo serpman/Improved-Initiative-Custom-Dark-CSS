@@ -67,11 +67,11 @@
    DOES NOT touch anything that affects <1000px behaviour. */
 @media (min-width: 1000px) {
   #playerview {
-    --col-portrait: 1.5rem;  /* smaller portrait = shorter rows */
+    --col-portrait: 2rem;
     --col-hp: 7rem;
     --col-tags: 9rem;
     --row-padding-y: 0rem;
-    --panel-width: 96%;  /* wider panel = more room for names */
+    --panel-width: 80%;
   }
 }
 
