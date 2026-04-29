@@ -158,12 +158,23 @@
     display: grid !important;
   }
   /*
-    Portrait is a static grid item at >1000px (same as <1000px) so it drives
-    row height naturally.  min-height is a safety net in case portrait is
-    smaller than expected.  Zero margins keep rows flush.
+    The app at >1000px assigns portrait/tags to grid-row 1 and text elements
+    to grid-row 2, creating a double-height stacked layout.
+    Force a single-row grid so everything sits on one line.
+  */
+  #playerview:not(#_) .combatant:not(#_),
+  #playerview:not(#_) .combatant--header:not(#_) {
+    grid-template-rows: auto !important;
+  }
+  /* Push all direct children onto the same single row */
+  #playerview:not(#_):not(#_) .combatant:not(#_):not(#_) > *,
+  #playerview:not(#_):not(#_) .combatant--header:not(#_):not(#_) > * {
+    grid-row: 1 !important;
+  }
+  /*
+    Zero out margins so rows sit flush.
   */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) {
-    min-height: var(--col-portrait) !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
   }
