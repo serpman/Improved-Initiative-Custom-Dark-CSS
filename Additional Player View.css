@@ -227,39 +227,43 @@
   ── >1000px: EMBRACE absolute positioning, control the coordinates ──
   Fighting position:static loses because the app's CSS injection order means
   its !important rules come after ours at the same specificity tier.
-  Instead we keep portrait/tags as position:absolute but pin them ourselves
-  to the exact column positions they should occupy.
+  Instead we keep portrait/tags as position:absolute but use grid-column to
+  make each element's own column area its containing block, then centre with
+  inset:0 + margin:auto — no rem arithmetic, immune to root font-size changes.
 
-  Portrait → col 2: offset from left = col-init + gap
-  Tags     → col 5: offset from right = col-reaction + gap
-  Both are vertically centred with top:50% + translateY(-50%).
-
-  The fixed-width grid columns (col-init, col-portrait, col-tags, col-reaction)
-  still reserve the correct horizontal space; the 1fr name column fills the rest.
+  Portrait → grid-column:2  (col-portrait wide, centred in column 2 area)
+  Tags     → grid-column:5  (col-tags wide, right-aligned in column 5 area)
 */
 @media (min-width: 1000px) {
   /*
-    left/right are measured from the padding edge of position:relative .combatant,
-    so we must add var(--row-padding-x) (1rem) to reach the start of the grid area.
+    STRATEGY: use grid-column on the absolutely-positioned portrait so the CSS
+    Grid spec makes column 2's grid area the portrait's own containing block.
+    inset:0 + margin:auto then centres the portrait inside that column area
+    without any rem arithmetic — immune to root font-size variations.
   */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__portrait,
   #playerview:not(#_) li.combatant:not(#_) .combatant__portrait {
     position: absolute !important;
-    inset: auto !important;                /* reset all four sides first */
-    left: calc(var(--row-padding-x) + var(--col-init) + var(--column-gap)) !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    inset: 0 !important;
+    margin: auto !important;
+    transform: none !important;
     width: var(--col-portrait) !important;
     height: var(--col-portrait) !important;
   }
 
+  /*
+    Same technique for tags: grid-column 5 makes column 5 the containing block.
+    Align tags to the right edge of the column.
+  */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__tags,
   #playerview:not(#_) li.combatant:not(#_) .combatant__tags {
     position: absolute !important;
-    inset: auto !important;                /* reset all four sides first */
-    right: calc(var(--row-padding-x) + var(--col-reaction) + var(--column-gap)) !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
+    grid-column: 5 !important;
+    grid-row: 1 !important;
+    inset: 0 !important;
+    margin: auto 0 !important;
     width: var(--col-tags) !important;
     display: flex !important;
     flex-direction: row !important;
