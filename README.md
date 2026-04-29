@@ -2,6 +2,8 @@
 
 A custom CSS theme for the Player View in [Improved Initiative](https://www.improvedinitiative.app/) — the free, open-source D&D 5e combat tracker. Designed for TV display, OBS streaming, and laptop play, with a stable 6-column grid layout, high-contrast HP colours, and a clean dark aesthetic.
 
+![Player View screenshot](screenshot.png)
+
 ---
 
 ## What this is
