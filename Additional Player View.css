@@ -103,6 +103,25 @@
 }
 
 /*
+  Reinforce position:relative on every combatant row using 2-ID specificity so
+  it wins over any app @media (min-width:1000px) override. Without this the
+  absolutely-positioned portrait/tags escape to a higher container.
+*/
+#playerview:not(#_) .combatant,
+#playerview:not(#_) .combatant--header {
+  position: relative !important;
+  display: grid !important;
+}
+
+@media (min-width: 1000px) {
+  #playerview:not(#_) .combatant,
+  #playerview:not(#_) .combatant--header {
+    position: relative !important;
+    display: grid !important;
+  }
+}
+
+/*
   Improved Initiative uses position:absolute on several child elements
   (portrait, tags, reaction tracker) which pulls them out of grid flow.
   Reset each so it participates in the grid normally.
@@ -135,11 +154,17 @@
 /*
   BODY ROWS only — portrait and tags become static grid items.
   The header tags are handled separately below (absolute-pinned approach).
+  Selectors include both element-type variants (div/li) AND class-only variants
+  because the app's element type can differ between versions/breakpoints.
 */
 #playerview:not(#_) li.combatant div.combatant__portrait,
 #playerview:not(#_) li.combatant div.combatant__tags,
+#playerview:not(#_) li.combatant .combatant__portrait,
+#playerview:not(#_) li.combatant .combatant__tags,
 #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__portrait,
-#playerview:not(#_) .combatant:not(.combatant--header) div.combatant__tags {
+#playerview:not(#_) .combatant:not(.combatant--header) div.combatant__tags,
+#playerview:not(#_) .combatant:not(.combatant--header) .combatant__portrait,
+#playerview:not(#_) .combatant:not(.combatant--header) .combatant__tags {
   position: static !important;
   top: auto !important;
   right: auto !important;
@@ -153,8 +178,12 @@
 @media (min-width: 1000px) {
   #playerview:not(#_) li.combatant div.combatant__portrait,
   #playerview:not(#_) li.combatant div.combatant__tags,
+  #playerview:not(#_) li.combatant .combatant__portrait,
+  #playerview:not(#_) li.combatant .combatant__tags,
   #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__portrait,
-  #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__tags {
+  #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__tags,
+  #playerview:not(#_) .combatant:not(.combatant--header) .combatant__portrait,
+  #playerview:not(#_) .combatant:not(.combatant--header) .combatant__tags {
     position: static !important;
     top: auto !important;
     right: auto !important;
