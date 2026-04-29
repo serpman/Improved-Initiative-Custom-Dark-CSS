@@ -102,20 +102,23 @@
   (portrait, tags, reaction tracker) which pulls them out of grid flow.
   Reset each so it participates in the grid normally.
 
-  STRATEGY:
-  - The app's JavaScript bundle injects its stylesheet *after* custom CSS
-    loads, so a same-specificity rule in their bundle always wins on source
-    order even if our rule also uses !important.
-  - We add element-type selectors (li, div, span) to make our specificity
-    strictly higher than their class-only selectors.
-  - We also duplicate the overrides inside @media (min-width: 1000px) so
-    our rule applies in exactly the same media context as their desktop
-    stylesheet.
+  STRATEGY — WHY THIS WORKS:
+  CSS specificity is counted as (IDs, classes+attrs+pseudoclasses, elements).
+  The app's stylesheet (injected later in the DOM) wins source-order ties.
+  To guarantee we win we need STRICTLY HIGHER specificity.
 
-  Specificity key:
-    #playerview li.combatant div.combatant__portrait → (0,1,2,2)
-    vs typical app rule   .combatant .combatant__portrait → (0,0,2,0)
-    Our rule wins ✓
+  The `:not(#_)` trick:
+    In CSS Selectors Level 4, :not() inherits the specificity of its
+    highest-specificity argument.  `:not(#_)` contributes one full ID
+    selector worth of specificity (ID=1), and since #playerview never has
+    id="_", the :not() is always true (it never excludes our element).
+
+    Result: `#playerview:not(#_)` = specificity (2, 0, 0)  ← TWO IDs.
+
+  Full selector: `#playerview:not(#_) li.combatant div.combatant__portrait`
+    → (2, 2, 2)  vs  app's max `#playerview li.combatant div.combatant__portrait`
+    → (1, 2, 2)
+    Our rule wins on ID tier alone, regardless of !important order. ✓
 
   Notes:
   - portrait & tags → position:static (no children need a positioning context)
@@ -123,13 +126,13 @@
     its fa-stack-1x / fa-stack-2x icons)
 */
 
-/* ── applies at ALL viewport widths ── */
-#playerview li.combatant div.combatant__portrait,
-#playerview div.combatant--header div.combatant__portrait,
-#playerview li.combatant div.combatant__tags,
-#playerview div.combatant--header div.combatant__tags,
-#playerview .combatant div.combatant__portrait,
-#playerview .combatant div.combatant__tags {
+/* ── base reset: all viewport widths ── */
+#playerview:not(#_) li.combatant div.combatant__portrait,
+#playerview:not(#_) div.combatant--header div.combatant__portrait,
+#playerview:not(#_) li.combatant div.combatant__tags,
+#playerview:not(#_) div.combatant--header div.combatant__tags,
+#playerview:not(#_) .combatant div.combatant__portrait,
+#playerview:not(#_) .combatant div.combatant__tags {
   position: static !important;
   top: auto !important;
   right: auto !important;
@@ -138,14 +141,14 @@
   inset: auto !important;
 }
 
-/* ── duplicated for the desktop media context where II re-applies absolute ── */
+/* ── mirrored for the desktop media context where II re-applies absolute ── */
 @media (min-width: 1000px) {
-  #playerview li.combatant div.combatant__portrait,
-  #playerview div.combatant--header div.combatant__portrait,
-  #playerview li.combatant div.combatant__tags,
-  #playerview div.combatant--header div.combatant__tags,
-  #playerview .combatant div.combatant__portrait,
-  #playerview .combatant div.combatant__tags {
+  #playerview:not(#_) li.combatant div.combatant__portrait,
+  #playerview:not(#_) div.combatant--header div.combatant__portrait,
+  #playerview:not(#_) li.combatant div.combatant__tags,
+  #playerview:not(#_) div.combatant--header div.combatant__tags,
+  #playerview:not(#_) .combatant div.combatant__portrait,
+  #playerview:not(#_) .combatant div.combatant__tags {
     position: static !important;
     top: auto !important;
     right: auto !important;
@@ -155,9 +158,10 @@
   }
 }
 
-#playerview li.combatant span.reaction-tracker,
-#playerview .combatant span.reaction-tracker,
-#playerview span.reaction-tracker {
+/* ── reaction tracker: needs relative so FA icon stack renders correctly ── */
+#playerview:not(#_) li.combatant span.reaction-tracker,
+#playerview:not(#_) .combatant span.reaction-tracker,
+#playerview:not(#_) span.reaction-tracker {
   position: relative !important;
   top: auto !important;
   right: auto !important;
@@ -167,9 +171,9 @@
 }
 
 @media (min-width: 1000px) {
-  #playerview li.combatant span.reaction-tracker,
-  #playerview .combatant span.reaction-tracker,
-  #playerview span.reaction-tracker {
+  #playerview:not(#_) li.combatant span.reaction-tracker,
+  #playerview:not(#_) .combatant span.reaction-tracker,
+  #playerview:not(#_) span.reaction-tracker {
     position: relative !important;
     top: auto !important;
     right: auto !important;
