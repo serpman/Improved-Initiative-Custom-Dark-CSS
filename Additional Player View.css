@@ -62,7 +62,7 @@
 }
 
 /* Responsive overrides for viewports wider than 1000 px.
-   Widens columns, bumps font size, and increases row padding so the layout
+   Widens columns, bumps font size, and tightens row padding so the layout
    fills the extra horizontal space gracefully.
    DOES NOT touch anything that affects <1000px behaviour. */
 @media (min-width: 1000px) {
@@ -71,7 +71,7 @@
     --col-portrait: 3.5rem;
     --col-hp: 9rem;
     --col-tags: 13rem;
-    --row-padding-y: 0.35rem;
+    --row-padding-y: 0.12rem;
   }
 }
 
@@ -227,7 +227,7 @@
   #playerview:not(#_) li.combatant:not(#_) .combatant__portrait {
     position: absolute !important;
     inset: auto !important;                /* reset all four sides first */
-    left: calc(var(--row-padding-x) + var(--col-init) + var(--column-gap)) !important;
+    left: calc(var(--col-init) + var(--column-gap)) !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     width: var(--col-portrait) !important;
