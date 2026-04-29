@@ -47,9 +47,9 @@
   --gold-light: #ffd966;
 
   /* How much to brighten the app's HP colours on our dark background.
-     1.0 = no change  |  1.5 = 50% brighter  |  2.0 = double brightness.
-     Raise this if the olive/yellow "partial HP" colour still looks too dark. */
-  --hp-brightness: 1.6;
+     1.0 = no change  |  2.0 = double brightness  |  3.0 = triple.
+     The partial-HP olive colour is very dark, so this needs to be high. */
+  --hp-brightness: 2.8;
 
   /* Tags */
   --tag-bg-top: #8f2a12;
@@ -438,7 +438,7 @@
    Tune --hp-brightness in Section 1 to taste. */
 #playerview .combatant:not(.combatant--header) .combatant__hp .combatant__hp-inner {
   filter: brightness(var(--hp-brightness)) !important;
-  text-shadow: 0 0 6px currentColor, -1px 1px 3px #000 !important;
+  text-shadow: -1px 1px 2px #000 !important;
 }
 
 #playerview .combatant:not(.combatant--header) .combatant__tags {
