@@ -127,34 +127,47 @@
 */
 
 /* ── base reset: all viewport widths ── */
+/*
+  Two selector variants per element:
+  a) With element-type selectors (li/div) for highest specificity when the
+     element types are known.
+  b) Without element-type selectors for the header, because the header
+     element type may vary and we don't want a missed type to break the fix.
+*/
 #playerview:not(#_) li.combatant div.combatant__portrait,
-#playerview:not(#_) div.combatant--header div.combatant__portrait,
 #playerview:not(#_) li.combatant div.combatant__tags,
-#playerview:not(#_) div.combatant--header div.combatant__tags,
 #playerview:not(#_) .combatant div.combatant__portrait,
-#playerview:not(#_) .combatant div.combatant__tags {
+#playerview:not(#_) .combatant div.combatant__tags,
+#playerview:not(#_) div.combatant--header div.combatant__portrait,
+#playerview:not(#_) div.combatant--header div.combatant__tags,
+#playerview:not(#_) .combatant--header .combatant__portrait,
+#playerview:not(#_) .combatant--header .combatant__tags {
   position: static !important;
   top: auto !important;
   right: auto !important;
   bottom: auto !important;
   left: auto !important;
   inset: auto !important;
+  align-self: center !important;
 }
 
 /* ── mirrored for the desktop media context where II re-applies absolute ── */
 @media (min-width: 1000px) {
   #playerview:not(#_) li.combatant div.combatant__portrait,
-  #playerview:not(#_) div.combatant--header div.combatant__portrait,
   #playerview:not(#_) li.combatant div.combatant__tags,
-  #playerview:not(#_) div.combatant--header div.combatant__tags,
   #playerview:not(#_) .combatant div.combatant__portrait,
-  #playerview:not(#_) .combatant div.combatant__tags {
+  #playerview:not(#_) .combatant div.combatant__tags,
+  #playerview:not(#_) div.combatant--header div.combatant__portrait,
+  #playerview:not(#_) div.combatant--header div.combatant__tags,
+  #playerview:not(#_) .combatant--header .combatant__portrait,
+  #playerview:not(#_) .combatant--header .combatant__tags {
     position: static !important;
     top: auto !important;
     right: auto !important;
     bottom: auto !important;
     left: auto !important;
     inset: auto !important;
+    align-self: center !important;
   }
 }
 
