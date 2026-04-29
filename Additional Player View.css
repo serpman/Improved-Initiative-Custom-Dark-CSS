@@ -69,9 +69,10 @@
   #playerview {
     font-size: 16px;
     --col-portrait: 3.5rem;
-    --col-hp: 9rem;
-    --col-tags: 13rem;
+    --col-hp: 7rem;      /* keep in line with base; "Defeated/Healthy" fit fine */
+    --col-tags: 9rem;    /* was 13rem — freed ~4rem for the name column */
     --row-padding-y: 0rem;
+    --panel-width: 92%;  /* fill more of the wider viewport */
   }
 }
 
