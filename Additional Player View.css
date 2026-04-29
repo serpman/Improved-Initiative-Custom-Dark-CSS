@@ -100,20 +100,36 @@
 /*
   Improved Initiative uses position:absolute on several child elements
   (portrait, tags, reaction tracker) which pulls them out of grid flow.
-  Reset each element so it participates in the grid normally.
+  Reset each so it participates in the grid normally.
 
-  We chain the parent class (.combatant / .combatant--header) to boost
-  specificity high enough to beat whatever Improved Initiative's own CSS
-  uses on these elements.
+  STRATEGY:
+  - The app's JavaScript bundle injects its stylesheet *after* custom CSS
+    loads, so a same-specificity rule in their bundle always wins on source
+    order even if our rule also uses !important.
+  - We add element-type selectors (li, div, span) to make our specificity
+    strictly higher than their class-only selectors.
+  - We also duplicate the overrides inside @media (min-width: 1000px) so
+    our rule applies in exactly the same media context as their desktop
+    stylesheet.
 
-  - portrait & tags → position:static (no inner children need a context)
-  - reaction-tracker → position:relative (Font Awesome fa-stack needs a
-    positioning context for its stacked fa-stack-1x / fa-stack-2x icons)
+  Specificity key:
+    #playerview li.combatant div.combatant__portrait → (0,1,2,2)
+    vs typical app rule   .combatant .combatant__portrait → (0,0,2,0)
+    Our rule wins ✓
+
+  Notes:
+  - portrait & tags → position:static (no children need a positioning context)
+  - reaction-tracker → position:relative (FA fa-stack needs a context for
+    its fa-stack-1x / fa-stack-2x icons)
 */
-#playerview .combatant .combatant__portrait,
-#playerview .combatant--header .combatant__portrait,
-#playerview .combatant .combatant__tags,
-#playerview .combatant--header .combatant__tags {
+
+/* ── applies at ALL viewport widths ── */
+#playerview li.combatant div.combatant__portrait,
+#playerview div.combatant--header div.combatant__portrait,
+#playerview li.combatant div.combatant__tags,
+#playerview div.combatant--header div.combatant__tags,
+#playerview .combatant div.combatant__portrait,
+#playerview .combatant div.combatant__tags {
   position: static !important;
   top: auto !important;
   right: auto !important;
@@ -122,14 +138,45 @@
   inset: auto !important;
 }
 
-#playerview .combatant .reaction-tracker,
-#playerview .reaction-tracker {
+/* ── duplicated for the desktop media context where II re-applies absolute ── */
+@media (min-width: 1000px) {
+  #playerview li.combatant div.combatant__portrait,
+  #playerview div.combatant--header div.combatant__portrait,
+  #playerview li.combatant div.combatant__tags,
+  #playerview div.combatant--header div.combatant__tags,
+  #playerview .combatant div.combatant__portrait,
+  #playerview .combatant div.combatant__tags {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
+  }
+}
+
+#playerview li.combatant span.reaction-tracker,
+#playerview .combatant span.reaction-tracker,
+#playerview span.reaction-tracker {
   position: relative !important;
   top: auto !important;
   right: auto !important;
   bottom: auto !important;
   left: auto !important;
   inset: auto !important;
+}
+
+@media (min-width: 1000px) {
+  #playerview li.combatant span.reaction-tracker,
+  #playerview .combatant span.reaction-tracker,
+  #playerview span.reaction-tracker {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
+  }
 }
 
 /* =========================================================
