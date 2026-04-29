@@ -68,11 +68,11 @@
 @media (min-width: 1000px) {
   #playerview {
     font-size: 16px;
-    --col-portrait: 3.5rem;
-    --col-hp: 7rem;      /* keep in line with base; "Defeated/Healthy" fit fine */
-    --col-tags: 9rem;    /* was 13rem — freed ~4rem for the name column */
+    --col-portrait: 2.5rem;  /* smaller portrait = shorter rows */
+    --col-hp: 7rem;
+    --col-tags: 9rem;
     --row-padding-y: 0rem;
-    --panel-width: 92%;  /* fill more of the wider viewport */
+    --panel-width: 96%;  /* wider panel = more room for names */
   }
 }
 
@@ -176,6 +176,7 @@
     Zero out margins so rows sit flush.
   */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) {
+    min-height: var(--col-portrait) !important;  /* matches portrait height */
     margin-top: 0 !important;
     margin-bottom: 0 !important;
   }
