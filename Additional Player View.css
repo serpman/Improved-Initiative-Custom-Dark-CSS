@@ -141,6 +141,14 @@
     position: relative !important;
     display: grid !important;
   }
+  /*
+    Portrait is position:absolute at >1000px so it doesn't contribute to row
+    height.  Ensure rows are at least as tall as the portrait so it doesn't
+    overflow into adjacent rows.
+  */
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) {
+    min-height: var(--col-portrait) !important;
+  }
 }
 
 /*
@@ -196,42 +204,50 @@
   align-self: center !important;
 }
 
-/* ── mirrored for the desktop media context where II re-applies absolute ── */
+/*
+  ── >1000px: EMBRACE absolute positioning, control the coordinates ──
+  Fighting position:static loses because the app's CSS injection order means
+  its !important rules come after ours at the same specificity tier.
+  Instead we keep portrait/tags as position:absolute but pin them ourselves
+  to the exact column positions they should occupy.
+
+  Portrait → col 2: offset from left = col-init + gap
+  Tags     → col 5: offset from right = col-reaction + gap
+  Both are vertically centred with top:50% + translateY(-50%).
+
+  The fixed-width grid columns (col-init, col-portrait, col-tags, col-reaction)
+  still reserve the correct horizontal space; the 1fr name column fills the rest.
+*/
 @media (min-width: 1000px) {
-  /* 2-ID pass (kept for compatibility) */
-  #playerview:not(#_) li.combatant div.combatant__portrait,
-  #playerview:not(#_) li.combatant div.combatant__tags,
-  #playerview:not(#_) li.combatant .combatant__portrait,
-  #playerview:not(#_) li.combatant .combatant__tags,
-  #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__portrait,
-  #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__tags,
-  #playerview:not(#_) .combatant:not(.combatant--header) .combatant__portrait,
-  #playerview:not(#_) .combatant:not(.combatant--header) .combatant__tags {
-    position: static !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    inset: auto !important;
-    align-self: center !important;
+  /*
+    left/right are measured from the padding edge of position:relative .combatant,
+    so we must add var(--row-padding-x) (1rem) to reach the start of the grid area.
+  */
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__portrait,
+  #playerview:not(#_) li.combatant:not(#_) .combatant__portrait {
+    position: absolute !important;
+    inset: auto !important;                /* reset all four sides first */
+    left: calc(var(--row-padding-x) + var(--col-init) + var(--column-gap)) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: var(--col-portrait) !important;
+    height: var(--col-portrait) !important;
   }
 
-  /* 3-ID pass — .combatant:not(#_) adds one extra ID to reach specificity (3,n,0) */
-  #playerview:not(#_) li.combatant:not(#_) div.combatant__portrait,
-  #playerview:not(#_) li.combatant:not(#_) div.combatant__tags,
-  #playerview:not(#_) li.combatant:not(#_) .combatant__portrait,
-  #playerview:not(#_) li.combatant:not(#_) .combatant__tags,
-  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) div.combatant__portrait,
-  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) div.combatant__tags,
-  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__portrait,
-  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__tags {
-    position: static !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    inset: auto !important;
-    align-self: center !important;
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__tags,
+  #playerview:not(#_) li.combatant:not(#_) .combatant__tags {
+    position: absolute !important;
+    inset: auto !important;                /* reset all four sides first */
+    right: calc(var(--row-padding-x) + var(--col-reaction) + var(--column-gap)) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: var(--col-tags) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
   }
 }
 
