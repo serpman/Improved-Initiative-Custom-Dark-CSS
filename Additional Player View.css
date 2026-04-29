@@ -158,10 +158,9 @@
     display: grid !important;
   }
   /*
-    Portrait is position:absolute at >1000px so it doesn't contribute to row
-    height.  Ensure rows are at least as tall as the portrait so it doesn't
-    overflow into adjacent rows.
-    Also zero out any app-applied margin so rows sit flush against each other.
+    Portrait is a static grid item at >1000px (same as <1000px) so it drives
+    row height naturally.  min-height is a safety net in case portrait is
+    smaller than expected.  Zero margins keep rows flush.
   */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) {
     min-height: var(--col-portrait) !important;
@@ -224,46 +223,40 @@
 }
 
 /*
-  ── >1000px: EMBRACE absolute positioning, control the coordinates ──
-  Fighting position:static loses because the app's CSS injection order means
-  its !important rules come after ours at the same specificity tier.
-  Instead we keep portrait/tags as position:absolute but use grid-column to
-  make each element's own column area its containing block, then centre with
-  inset:0 + margin:auto — no rem arithmetic, immune to root font-size changes.
-
-  Portrait → grid-column:2  (col-portrait wide, centred in column 2 area)
-  Tags     → grid-column:5  (col-tags wide, right-aligned in column 5 area)
+  ── >1000px: beat the app's @media re-injection with higher specificity ──
+  The app re-applies position:absolute !important inside its own
+  @media (min-width:1000px) block at roughly (2,2,2) specificity.
+  Our base rule (2,2,2) loses on source-order.
+  Solution: re-declare position:static !important in OUR @media block at
+  (5,2,1) specificity by chaining extra :not(#_) pseudo-classes.
+  Five IDs beats any realistic app selector, so we always win.
 */
 @media (min-width: 1000px) {
-  /*
-    STRATEGY: use grid-column on the absolutely-positioned portrait so the CSS
-    Grid spec makes column 2's grid area the portrait's own containing block.
-    inset:0 + margin:auto then centres the portrait inside that column area
-    without any rem arithmetic — immune to root font-size variations.
-  */
-  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__portrait,
-  #playerview:not(#_) li.combatant:not(#_) .combatant__portrait {
-    position: absolute !important;
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    inset: 0 !important;
-    margin: auto !important;
+  #playerview:not(#_):not(#_) li.combatant:not(#_):not(#_) .combatant__portrait,
+  #playerview:not(#_):not(#_) .combatant:not(#_):not(#_):not(.combatant--header) .combatant__portrait {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
     transform: none !important;
+    align-self: center !important;
+    justify-self: center !important;
     width: var(--col-portrait) !important;
     height: var(--col-portrait) !important;
   }
 
-  /*
-    Same technique for tags: grid-column 5 makes column 5 the containing block.
-    Align tags to the right edge of the column.
-  */
-  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__tags,
-  #playerview:not(#_) li.combatant:not(#_) .combatant__tags {
-    position: absolute !important;
-    grid-column: 5 !important;
-    grid-row: 1 !important;
-    inset: 0 !important;
-    margin: auto 0 !important;
+  #playerview:not(#_):not(#_) li.combatant:not(#_):not(#_) .combatant__tags,
+  #playerview:not(#_):not(#_) .combatant:not(#_):not(#_):not(.combatant--header) .combatant__tags {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
+    transform: none !important;
+    align-self: center !important;
     width: var(--col-tags) !important;
     display: flex !important;
     flex-direction: row !important;
