@@ -172,12 +172,23 @@
     grid-row: 1 !important;
   }
   /*
-    Zero out margins so rows sit flush.
+    Zero out all vertical space on body rows.
+    3-ID specificity guarantees this beats any app @media override.
   */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) {
-    min-height: var(--col-portrait) !important;  /* matches portrait height */
+    min-height: var(--col-portrait) !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  /* Prevent text line-height from inflating rows beyond portrait height */
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) > * {
+    line-height: 1 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
