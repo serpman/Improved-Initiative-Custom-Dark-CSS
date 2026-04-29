@@ -71,7 +71,7 @@
     --col-portrait: 3.5rem;
     --col-hp: 9rem;
     --col-tags: 13rem;
-    --row-padding-y: 0.12rem;
+    --row-padding-y: 0rem;
   }
 }
 
@@ -107,14 +107,30 @@
     var(--col-name)
     var(--col-hp)
     var(--col-tags)
-    var(--col-reaction);
+    var(--col-reaction) !important;
 
-  column-gap: var(--column-gap);
+  column-gap: var(--column-gap) !important;
   align-items: center !important;
   box-sizing: border-box;
 
   /* Establish a fresh positioning context for this row */
   position: relative !important;
+}
+
+/*
+  High-specificity duplicate so grid-template-columns wins if the app
+  overrides the 1-ID rule above (app stylesheet is injected AFTER ours).
+*/
+#playerview:not(#_) .combatant:not(#_),
+#playerview:not(#_) .combatant--header:not(#_) {
+  grid-template-columns:
+    var(--col-init)
+    var(--col-portrait)
+    var(--col-name)
+    var(--col-hp)
+    var(--col-tags)
+    var(--col-reaction) !important;
+  column-gap: var(--column-gap) !important;
 }
 
 /*
@@ -145,9 +161,12 @@
     Portrait is position:absolute at >1000px so it doesn't contribute to row
     height.  Ensure rows are at least as tall as the portrait so it doesn't
     overflow into adjacent rows.
+    Also zero out any app-applied margin so rows sit flush against each other.
   */
   #playerview:not(#_) .combatant:not(#_):not(.combatant--header) {
     min-height: var(--col-portrait) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 }
 
@@ -227,7 +246,7 @@
   #playerview:not(#_) li.combatant:not(#_) .combatant__portrait {
     position: absolute !important;
     inset: auto !important;                /* reset all four sides first */
-    left: calc(var(--col-init) + var(--column-gap)) !important;
+    left: calc(var(--row-padding-x) + var(--col-init) + var(--column-gap)) !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     width: var(--col-portrait) !important;
