@@ -61,6 +61,20 @@
   font-size: 15px;
 }
 
+/* Responsive overrides for viewports wider than 1000 px.
+   Widens columns, bumps font size, and increases row padding so the layout
+   fills the extra horizontal space gracefully.
+   DOES NOT touch anything that affects <1000px behaviour. */
+@media (min-width: 1000px) {
+  #playerview {
+    font-size: 16px;
+    --col-portrait: 3.5rem;
+    --col-hp: 9rem;
+    --col-tags: 13rem;
+    --row-padding-y: 0.35rem;
+  }
+}
+
 /* =========================================================
    2. MAIN PANEL
    ========================================================= */
@@ -115,8 +129,15 @@
 }
 
 @media (min-width: 1000px) {
+  /* 2-ID pass */
   #playerview:not(#_) .combatant,
   #playerview:not(#_) .combatant--header {
+    position: relative !important;
+    display: grid !important;
+  }
+  /* 3-ID pass — extra :not(#_) on .combatant pushes specificity to (3,1,0) */
+  #playerview:not(#_) .combatant:not(#_),
+  #playerview:not(#_) .combatant--header:not(#_) {
     position: relative !important;
     display: grid !important;
   }
@@ -177,6 +198,7 @@
 
 /* ── mirrored for the desktop media context where II re-applies absolute ── */
 @media (min-width: 1000px) {
+  /* 2-ID pass (kept for compatibility) */
   #playerview:not(#_) li.combatant div.combatant__portrait,
   #playerview:not(#_) li.combatant div.combatant__tags,
   #playerview:not(#_) li.combatant .combatant__portrait,
@@ -185,6 +207,24 @@
   #playerview:not(#_) .combatant:not(.combatant--header) div.combatant__tags,
   #playerview:not(#_) .combatant:not(.combatant--header) .combatant__portrait,
   #playerview:not(#_) .combatant:not(.combatant--header) .combatant__tags {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
+    align-self: center !important;
+  }
+
+  /* 3-ID pass — .combatant:not(#_) adds one extra ID to reach specificity (3,n,0) */
+  #playerview:not(#_) li.combatant:not(#_) div.combatant__portrait,
+  #playerview:not(#_) li.combatant:not(#_) div.combatant__tags,
+  #playerview:not(#_) li.combatant:not(#_) .combatant__portrait,
+  #playerview:not(#_) li.combatant:not(#_) .combatant__tags,
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) div.combatant__portrait,
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) div.combatant__tags,
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__portrait,
+  #playerview:not(#_) .combatant:not(#_):not(.combatant--header) .combatant__tags {
     position: static !important;
     top: auto !important;
     right: auto !important;
@@ -260,9 +300,20 @@
 }
 
 @media (min-width: 1000px) {
+  /* 2-ID pass */
   #playerview:not(#_) li.combatant span.reaction-tracker,
   #playerview:not(#_) .combatant span.reaction-tracker,
   #playerview:not(#_) span.reaction-tracker {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    inset: auto !important;
+  }
+  /* 3-ID pass */
+  #playerview:not(#_) li.combatant:not(#_) span.reaction-tracker,
+  #playerview:not(#_) .combatant:not(#_) span.reaction-tracker {
     position: relative !important;
     top: auto !important;
     right: auto !important;
